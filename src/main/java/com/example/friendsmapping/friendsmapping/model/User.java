@@ -1,23 +1,26 @@
 package com.example.friendsmapping.friendsmapping.model;
 
 import java.util.List;
+import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
 public class User {
+    public User(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,9 +30,6 @@ public class User {
 
     private String password;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<User> friends;
-
     // This is the inverse side
     @OneToMany(mappedBy = "recipient")
     private List<FriendRequest> receivedRequests;
@@ -38,6 +38,27 @@ public class User {
     // This is the inverse side
     @OneToMany(mappedBy="sender")
     private List<FriendRequest> sentRequests;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof User)) {
+            return false;
+        }
+        
+        User user = (User) o;
+ 
+        return this.getUsername().equals(user.getUsername());
+        
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, receivedRequests, sentRequests);
+    }
+
 
 
 

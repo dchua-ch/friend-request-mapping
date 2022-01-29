@@ -1,5 +1,7 @@
 package com.example.friendsmapping.friendsmapping.service;
 
+import java.util.List;
+
 import com.example.friendsmapping.friendsmapping.helper.RequestStatus;
 import com.example.friendsmapping.friendsmapping.model.FriendRequest;
 import com.example.friendsmapping.friendsmapping.model.User;
@@ -22,36 +24,36 @@ public class FriendRequestServiceImpl implements FriendRequestService {
 
         FriendRequest request = fRepo.findById(id).get();
 
-        User sender = request.getSender();
-
-        sender.getFriends().add(request.getRecipient());
-
-        User recipient = request.getRecipient();
-        
-        recipient.getFriends().add(request.getSender());
-
-
-
-
         request.setStatus(RequestStatus.ACCEPTED);
 
         fRepo.saveAndFlush(request);
-        uRepo.saveAndFlush(sender);
-
-
-  
-
-
         
     }
 
 
     @Override
-    public void findRequestBySender(User sender) {
+    public boolean sendRequest(User sender, User recipient) {
         // TODO Auto-generated method stub
+        if(sender.equals(recipient)){
+            return false;
+        }
+        List<FriendRequest> existingRequests = fRepo.findExistingRequests(sender, recipient);
+        if(existingRequests.size() > 0) {
+            return false;
+        }
+
+        fRepo.saveAndFlush(new FriendRequest(sender,recipient));
+        return true;
+        
+    }
 
 
+    @Override
+    public void rejectRequest(FriendRequest request) {
+        // TODO Auto-generated method stub
+        fRepo.delete(request);
         
     }
     
+  
 }

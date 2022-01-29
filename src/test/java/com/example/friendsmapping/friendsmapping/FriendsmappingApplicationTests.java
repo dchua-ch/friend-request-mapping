@@ -170,15 +170,7 @@ class FriendsmappingApplicationTests {
 		sender = uRepo.findByUsername(request.getSender().getUsername());
 		User recipient = uRepo.findByUsername(request.getRecipient().getUsername());
 
-		System.out.println("Sender's friends: ");
-		for(User friend : sender.getFriends()){
-			System.out.println(friend.getUsername());
-		}
 
-		System.out.println("Recipient's friends: ");
-		for(User friend: recipient.getFriends()){
-			System.out.println(friend.getUsername());
-		}
 
 		
 
