@@ -86,8 +86,7 @@ public class FriendRequestTests {
 
 
         if(!fService.sendRequest(sender, recipient)){
-            assertEquals(0, 1);//fail the test
-            return;
+            fail("sendRequest failed");
         }
 
 
