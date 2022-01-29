@@ -168,7 +168,7 @@ class FriendsmappingApplicationTests {
 		// Get updated sender and recipient objects from database
 
 		sender = uRepo.findByUsername(request.getSender().getUsername());
-		User recipient = uRepo.findByUsername(request.getRecipient().getUsername());
+		//User recipient = uRepo.findByUsername(request.getRecipient().getUsername());
 
 
 

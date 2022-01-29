@@ -33,7 +33,6 @@ public class FriendRequestServiceImpl implements FriendRequestService {
 
     @Override
     public boolean sendRequest(User sender, User recipient) {
-        // TODO Auto-generated method stub
         if(sender.equals(recipient)){
             return false;
         }
@@ -50,7 +49,6 @@ public class FriendRequestServiceImpl implements FriendRequestService {
 
     @Override
     public void rejectRequest(FriendRequest request) {
-        // TODO Auto-generated method stub
         fRepo.delete(request);
         
     }

@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ArrayList<User> findFriendsOf(User user) {
-        // TODO Auto-generated method stub
 
         ArrayList<User> friends = new ArrayList<User>();
 
