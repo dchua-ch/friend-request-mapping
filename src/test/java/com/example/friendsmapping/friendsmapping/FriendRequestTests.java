@@ -120,8 +120,10 @@ public class FriendRequestTests {
     @Order(5)
     void testAcceptRequest() {
         User recipient = uRepo.findByUsername("monica");
+
         List<FriendRequest> pendingRequests = fRepo.findPendingRequestsByRecipient(recipient);
         assertEquals(1, pendingRequests.size());
+        
         fService.acceptRequest(pendingRequests.get(0).getId());
         User sender = pendingRequests.get(0).getSender();
 
